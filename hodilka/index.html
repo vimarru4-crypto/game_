@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Игра-Бродилка: Школьный проект Анны</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            background-color: #f0f2f5;
+            padding: 20px;
+        }
+        #game-board {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            background-color: #fff;
+            margin: 0 auto;
+            border: 4px solid #34495e;
+        }
+        #player {
+            position: absolute;
+            width: 36px;
+            height: 36px;
+            background-color: #2ecc71;
+            border-radius: 4px;
+            /* Начальная позиция */
+            left: 0px;
+            top: 0px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Школьный проект: Игра-Бродилка</h1>
+    <p>Пробуй двигать кубик стрелочками на клавиатуре прямо сейчас!</p>
+
+    <div id="game-board">
+        <div id="player"></div>
+    </div>
+
+    <script>
+        const player = document.getElementById('player');
+        const cellSize = 40; // шаг в пикселях
+
+        // Текущие координаты в пикселях
+        let leftPos = 0;
+        let topPos = 0;
+
+        // Слушаем нажатия клавиш на уровне ВСЕГО окна браузера
+        window.addEventListener('keydown', function(event) {
+            
+            // Запрещаем браузеру прокручивать страницу вверх-вниз от стрелочек
+            if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(event.key) > -1) {
+                event.preventDefault();
+            }
+
+            // Логика движения
+            if (event.key === 'ArrowUp') {
+                if (topPos > 0) topPos -= cellSize;
+            }
+            if (event.key === 'ArrowDown') {
+                if (topPos < 360) topPos += cellSize;
+            }
+            if (event.key === 'ArrowLeft') {
+                if (leftPos > 0) leftPos -= cellSize;
+            }
+            if (event.key === 'ArrowRight') {
+                if (leftPos < 360) leftPos += cellSize;
+            }
+
+            // Применяем изменения к квадрату
+            player.style.left = leftPos + 'px';
+            player.style.top = topPos + 'px';
+        });
+    </script>
+</body>
+</html>
